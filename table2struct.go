@@ -72,6 +72,8 @@ type T2tConfig struct {
 	JsonTagToHump    bool // json tag是否转为驼峰，默认为false，不转换
 	UcFirstOnly      bool // 字段首字母大写的同时, 是否要把其他字母转换为小写,默认false不转换
 	SeperatFile      bool // 每个struct放入单独的文件,默认false,放入同一个文件
+	AutoSetCreatedAt bool // created_at 字段是否需要gorm自动更新
+	AutoSetUpdatedAt bool // updated_at 字段是否需要gorm自动更新
 }
 
 func NewTable2Struct() *Table2Struct {
@@ -319,6 +321,13 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 		if t.tagKey == "" {
 			t.tagKey = "orm"
 		}
+
+		if col.ColumnName == "created_at" && !t.config.AutoSetCreatedAt {
+			t.tagKey += ";autoCreateTime:false"
+		} else if col.ColumnName == "updated_at" && !t.config.AutoSetUpdatedAt {
+			t.tagKey += ";autoUpdateTime:false"
+		}
+
 		if t.enableJsonTag {
 			//col.Json = fmt.Sprintf("`json:\"%s\" %s:\"%s\"`", col.Json, t.config.TagKey, col.Json)
 			col.Tag = fmt.Sprintf("`%s:\"column:%s\" json:\"%s\"`", t.tagKey, col.Tag, jsonTag)
