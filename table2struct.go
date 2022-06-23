@@ -321,9 +321,9 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 		}
 		if t.enableJsonTag {
 			//col.Json = fmt.Sprintf("`json:\"%s\" %s:\"%s\"`", col.Json, t.config.TagKey, col.Json)
-			col.Tag = fmt.Sprintf("`%s:\"%s\" json:\"%s\"`", t.tagKey, col.Tag, jsonTag)
+			col.Tag = fmt.Sprintf("`%s:\"column:%s\" json:\"%s\"`", t.tagKey, col.Tag, jsonTag)
 		} else {
-			col.Tag = fmt.Sprintf("`%s:\"%s\"`", t.tagKey, col.Tag)
+			col.Tag = fmt.Sprintf("`%s:\"column:%s\"`", t.tagKey, col.Tag)
 		}
 		//columns = append(columns, col)
 		if _, ok := tableColumns[col.TableName]; !ok {
