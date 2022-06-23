@@ -323,9 +323,9 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 		}
 
 		if col.ColumnName == "CreatedAt" && !t.config.AutoSetCreatedAt {
-			t.tagKey += ";autoCreateTime:false"
+			col.Tag += ";autoCreateTime:false"
 		} else if col.ColumnName == "UpdatedAt" && !t.config.AutoSetUpdatedAt {
-			t.tagKey += ";autoUpdateTime:false"
+			col.Tag += ";autoUpdateTime:false"
 		}
 
 		if t.enableJsonTag {
