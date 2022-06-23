@@ -322,9 +322,9 @@ func (t *Table2Struct) getColumns(table ...string) (tableColumns map[string][]co
 			t.tagKey = "orm"
 		}
 
-		if col.ColumnName == "created_at" && !t.config.AutoSetCreatedAt {
+		if col.ColumnName == "CreatedAt" && !t.config.AutoSetCreatedAt {
 			t.tagKey += ";autoCreateTime:false"
-		} else if col.ColumnName == "updated_at" && !t.config.AutoSetUpdatedAt {
+		} else if col.ColumnName == "UpdatedAt" && !t.config.AutoSetUpdatedAt {
 			t.tagKey += ";autoUpdateTime:false"
 		}
 
